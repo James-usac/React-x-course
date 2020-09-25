@@ -1,33 +1,68 @@
-import React ,{Component} from 'react'
-import { Card, CardText } from 'reactstrap';
+import React, { Component } from 'react';
+import { Card, CardImg, CardText, CardBody, CardTitle } from 'reactstrap';
 
-class Dishdetail extends Component{
-    
-    constructor(props) {
-        super(props);
 
-        this.state = {
-            nuevo: null
+class Dishdetail extends Component {  
+    renderDish(dish) {
+        if (dish != null)
+        {
+            return (
+                <Card>
+                    <CardImg top src={dish.image} alt={dish.name} />
+                    <CardBody>
+                      <CardTitle>{dish.name}</CardTitle>
+                      <CardText>{dish.description}</CardText>
+                    </CardBody>   
+                </Card>   
+            )
         }
+        else
+            return(
+                <div></div>
+            );
     }
 
-    render(){
-        const comentarios = this.props.comentario.map((dish) => {
+    renderComments(comments){
+        if (comments != null){    
+            
+                return (
+                    <div>
+                        {comments.map((dish) => (
+                            <Card className="m-1">
+                                <CardText>{dish.comment}</CardText>
+                                <CardText>--{dish.author},{new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(dish.date)))}</CardText>
+                            </Card>
+                        ))};
+                    </div>
+                );
+        }
+        else {
+            return (<div></div>);
+        }
+    }
+    
+    render() {        
+        if (this.props.dish != null)
+        {
             return (
-                <card>
-                    <CardText>{dish.comment}</CardText>
-                    <CardText>--{dish.author},{dish.date}</CardText>
-                </card>
-            );
-        });
-
-        return (
-            <div className="container">
-                <div className="row">
-                    {comentarios}
+                <div className="container">
+                    <div className="row">
+                        <div className="col-12 col-md-5 m-1">
+                            {this.renderDish(this.props.dish)}
+                        </div>
+                        <div className="col-12 col-md-5 m-1">
+                        <h4><strong class="float-left">Comments</strong></h4>
+                            <br/>
+                            {this.renderComments(this.props.dish.comments)}
+                        </div>
+                    </div>
                 </div>
-            </div>
-        );
+            )
+        }
+        else
+            return(
+                <div></div>
+            );
     }
 }
 

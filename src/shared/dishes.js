@@ -78,8 +78,8 @@ export const DISHES =
             {
             id: 3,
             rating: 4,
-            comment: "Ultimate, Reaching for the stars!",
-            author: "Ringo Starry",
+            comment: "Me gusto tu platillo",
+            author: "Miguel Angel",
             date: "2013-12-02T17:57:28.556094Z"
             },
             {
