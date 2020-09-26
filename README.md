@@ -80,3 +80,16 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 ## Install react-popper
 
 `npm install react-popper`
+
+## Install font Awesome
+
+``` bash
+  npm i font-awesome
+  npm i --save @fortawesome/fontawesome-svg-core
+  npm install --save @fortawesome/free-solid-svg-icons
+  npm install --save @fortawesome/react-fontawesome
+```
+
+## Install bootstrap-social
+
+`npm i bootstrap-social`

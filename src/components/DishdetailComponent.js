@@ -23,7 +23,6 @@ function RenderDish({dish}) {
 
 function RenderComments({comments}) {
     if (comments != null) {
-
         return (
             <div>
                 {comments.map((dish) => (

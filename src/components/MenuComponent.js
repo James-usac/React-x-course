@@ -2,6 +2,7 @@ import React from 'react'
 import { Card, CardImg, CardImgOverlay, CardTitle } from 'reactstrap';
 
 //ctrl + k, ctrl + f
+
 function RenderMenuItem ({dish, onClick}) {
   return (
     <Card body color="primary" onClick={() => onClick(dish.id)}>
