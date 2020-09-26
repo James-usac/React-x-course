@@ -17,7 +17,7 @@ class Main extends Component{
   onDishSelect(dishId) {
     this.setState({ selectedDish: dishId});
   }
-  //<Dishdetail dish={this.state.dishes.filter((dish) => dish.id === this.state.selectedDish)[0]} />
+  
   render() {
     return (
         <div>
