@@ -1,9 +1,84 @@
-import React from 'react';
-import { Card, CardImg, CardText, CardBody,
-    CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import React, {Component} from 'react';
+import { Card, CardImg, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem,
+     Button, Modal, ModalHeader, ModalBody, Row, Label, Input, Col  } from 'reactstrap';
+import { Control, LocalForm, Errors} from 'react-redux-form';
 import { Link } from 'react-router-dom';
 
+
+class Formulario extends Component{
+    constructor(props){
+        super(props)
+
+        this.state = {
+            isModalOpen: false
+        };
+        this.handleSubmit = this.handleSubmit.bind(this);   
+        this.toggleModal = this.toggleModal.bind(this);
+    }
+
+    handleSubmit(values) {
+        console.log('Current State is: ' + JSON.stringify(values));
+        alert('Current State is: ' + JSON.stringify(values));
+        // event.preventDefault();
+    }
+
+    toggleModal() {
+        this.setState({
+          isModalOpen: !this.state.isModalOpen
+        });
+      }
+
+    render() {
+        return (
+            <div>
+                <Button type="submit" onClick={this.toggleModal}
+                    className="fa fa-pencil fa-lg btn btn-dark m-1 float-lg-right"
+                >Submit Comment</Button>
+                <div className="col-12 col-md-9">
+                <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
+                    <ModalHeader toggle={this.toggleModal}>Submmit Comment</ModalHeader>
+                    <ModalBody>
+                        <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
+                            <Row className="form-group">
+                                <Col md={12}>
+                                    <Label htmlFor="Rating">Rating</Label>
+                                    <Control.select model=".selected" type="number" name="contactType"
+                                        className="form-control custom-select mr-sm-2">
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                    </Control.select>
+                                </Col>
+                             </Row>
+                             <Row className="form-group">
+                                <Col md={12}>
+                                    <Label htmlFor="name">Your Name</Label>
+                                    <Input type="text" id="username" name="username" 
+                                        innerRef={(input) => this.username = input} />
+                                </Col>
+                            </Row>
+                            <Row className="form-group">
+                                <Col md={12}>
+                                    <Label htmlFor="comment">Comment</Label>
+                                    <Control.textarea model=".message" id="message" name="message"
+                                            rows="6"
+                                            className="form-control" />
+                                </Col>
+                            </Row>
+                            <Button type="submit" value="submit" color="primary">Submit</Button>
+                        </LocalForm>
+                    </ModalBody>
+                </Modal>
+                </div>
+            </div>
+        )
+    }
+}
+
 function RenderDish({ dish }) {
+    
     return (
         <div>
             <Card>
@@ -27,7 +102,8 @@ function RenderComments({comments}) {
                         <CardText>{dish.comment}</CardText>
                         <CardText>--{dish.author},{new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).format(new Date(Date.parse(dish.date)))}</CardText>
                     </Card>
-                ))};
+                ))}
+                <Formulario></Formulario>
             </div>
         );
     }
