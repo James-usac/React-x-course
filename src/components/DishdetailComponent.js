@@ -1,9 +1,12 @@
 import React, {Component} from 'react';
 import { Card, CardImg, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem,
-     Button, Modal, ModalHeader, ModalBody, Row, Label, Input, Col  } from 'reactstrap';
+     Button, Modal, ModalHeader, ModalBody, Row, Label, Col  } from 'reactstrap';
 import { Control, LocalForm, Errors} from 'react-redux-form';
 import { Link } from 'react-router-dom';
 
+const required = (val) => val && val.length;
+const maxLength = (len) => (val) => !(val) || (val.length <= len);
+const minLength = (len) => (val) => val && (val.length >= len);
 
 class Formulario extends Component{
     constructor(props){
@@ -55,8 +58,23 @@ class Formulario extends Component{
                              <Row className="form-group">
                                 <Col md={12}>
                                     <Label htmlFor="name">Your Name</Label>
-                                    <Input type="text" id="username" name="username" 
-                                        innerRef={(input) => this.username = input} />
+                                    <Control.text model=".name" id="youname" name="youname"
+                                        placeholder="Your Name"
+                                        className="form-control"
+                                        validators={{
+                                            required, minLength: minLength(3), maxLength: maxLength(15)
+                                        }}
+                                    />
+                                    <Errors
+                                        className="text-danger"
+                                        model=".name"
+                                        show="touched"
+                                        messages={{
+                                            required: 'Required',
+                                            minLength: 'Must be greater than 2 characters',
+                                            maxLength: 'Must be 15 characters or less'
+                                        }}
+                                     />
                                 </Col>
                             </Row>
                             <Row className="form-group">
