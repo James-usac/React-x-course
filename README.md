@@ -54,5 +54,6 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
 npm install redux
 npm install react-redux
 npm install --save-dev redux-devtools
+npm install react-redux-form
 npx create-react-app my-app --template redux
 ```
