@@ -80,7 +80,7 @@ class Formulario extends Component{
                             <Row className="form-group">
                                 <Col md={12}>
                                     <Label htmlFor="comment">Comment</Label>
-                                    <Control.textarea model=".message" id="message" name="message"
+                                    <Control.textarea model=".comment" id="comment" name="comment"
                                             rows="6"
                                             className="form-control" />
                                 </Col>
