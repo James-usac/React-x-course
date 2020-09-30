@@ -8,28 +8,32 @@ const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
 const minLength = (len) => (val) => val && (val.length >= len);
 
-class Formulario extends Component{
+class CommentForm extends Component{
     constructor(props){
         super(props)
 
         this.state = {
             isModalOpen: false
         };
-        this.handleSubmit = this.handleSubmit.bind(this);   
-        this.toggleModal = this.toggleModal.bind(this);
-    }
 
-    handleSubmit(values) {
-        console.log('Current State is: ' + JSON.stringify(values));
-        alert('Current State is: ' + JSON.stringify(values));
-        // event.preventDefault();
+        this.toggleModal = this.toggleModal.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);   
+        
     }
 
     toggleModal() {
         this.setState({
           isModalOpen: !this.state.isModalOpen
         });
-      }
+    }
+
+    handleSubmit(values) {
+        this.toggleModal()
+        this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
+
+    }
+
+    
 
     render() {
         return (
@@ -44,8 +48,8 @@ class Formulario extends Component{
                         <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
                             <Row className="form-group">
                                 <Col md={12}>
-                                    <Label htmlFor="Rating">Rating</Label>
-                                    <Control.select model=".selected" type="number" name="contactType"
+                                    <Label htmlFor="rating">Rating</Label>
+                                    <Control.select model=".rating"  id="rating" type="number" name="rating"
                                         className="form-control custom-select mr-sm-2">
                                         <option>1</option>
                                         <option>2</option>
@@ -57,8 +61,8 @@ class Formulario extends Component{
                              </Row>
                              <Row className="form-group">
                                 <Col md={12}>
-                                    <Label htmlFor="name">Your Name</Label>
-                                    <Control.text model=".name" id="youname" name="youname"
+                                    <Label htmlFor="author">Your Name</Label>
+                                    <Control.text model=".author" id="author" name="author"
                                         placeholder="Your Name"
                                         className="form-control"
                                         validators={{
@@ -67,7 +71,7 @@ class Formulario extends Component{
                                     />
                                     <Errors
                                         className="text-danger"
-                                        model=".name"
+                                        model=".author"
                                         show="touched"
                                         messages={{
                                             required: 'Required',
@@ -110,7 +114,7 @@ function RenderDish({ dish }) {
     )
 }
 
-function RenderComments({comments}) {
+function RenderComments({comments, addComment, dishId}) {
     if (comments != null) {
         return (
             <div>
@@ -121,7 +125,7 @@ function RenderComments({comments}) {
                         <CardText>--{dish.author},{new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).format(new Date(Date.parse(dish.date)))}</CardText>
                     </Card>
                 ))}
-                <Formulario></Formulario>
+                <CommentForm dishId={dishId} addComment={addComment} />
             </div>
         );
     }
@@ -151,7 +155,10 @@ const  Dishdetail = (props) => {
                         <RenderDish dish={props.dish} />
                     </div>
                     <div className="col-12 col-md-5 m-1">
-                        <RenderComments comments={props.comments} />
+                        <RenderComments comments={props.comments}
+                            addComment={props.addComment}
+                            dishId={props.dish.id}
+                        />
                     </div>
                 </div>
             </div>
