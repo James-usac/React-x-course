@@ -57,3 +57,11 @@ npm install --save-dev redux-devtools
 npm install react-redux-form
 npx create-react-app my-app --template redux
 ```
+
+## otros
+
+``` bash
+npm i redux-thunk
+npm i redux-logger
+
+```
