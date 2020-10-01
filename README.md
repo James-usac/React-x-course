@@ -58,10 +58,14 @@ npm install react-redux-form
 npx create-react-app my-app --template redux
 ```
 
+
+
 ## otros
 
 ``` bash
 npm i redux-thunk
 npm i redux-logger
-
+npm install json-server -g
+json-server --watch db.json -p 3001 -d 2000
+npm i cross-fetch
 ```
