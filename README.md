@@ -66,6 +66,9 @@ npx create-react-app my-app --template redux
 npm i redux-thunk
 npm i redux-logger
 npm install json-server -g
+npm i react-transition-group
+npm i react-animation-components
+npm i prop-types
 json-server --watch db.json -p 3001 -d 2000
 npm i cross-fetch
 ```
